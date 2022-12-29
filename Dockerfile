@@ -6,12 +6,10 @@ FROM registry.gitlab.com/a16bitsysop/alpine-dev-local/main:latest AS buildbase
 ARG NME
 
 # install extra packages and add /tmp/pkg to repositories
-RUN doas apk add --no-cache -u findutils gdb \
-&&  doas echo /tmp/pkg >> /etc/apk/repositories
+RUN doas apk add --no-cache -u findutils gdb
 
 # create keys and copy to global folder, switch to build user
 RUN abuild-keygen -a -i -n
-WORKDIR /tmp/pkg
 
 ##################################################################################################
 FROM buildbase AS builddep
